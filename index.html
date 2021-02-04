@@ -9,22 +9,17 @@
 		body {
 			background-color: #2f3437;
 			line-height: 1.6;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			width: 100vw;
+			margin: 0;
 		}
 
 		h1 {
 			margin-top: 0;
-		}
-
-		.full-table {
-			display: table;
-			height: 100%;
-			width: 100%;
-		}
-
-		.table-cell {
-			display: table-cell;
-			vertical-align: middle;
-			text-align: center;
 		}
 
 		.card {
@@ -36,7 +31,8 @@
 			border-radius: 10px;
 			background: #6a8863;
 			color: #fff;
-			display: inline-block;
+			display: block;
+			text-align: center;
 		}
 
 		.clock {
@@ -67,83 +63,77 @@
 			font-size: 1.2em;
 		}
 	</style>
+	<link href="https://fonts.googleapis.com/css?family=Lobster|Roboto:400,700" rel="stylesheet">
+	<script>
+		window.addEventListener('load', function() {
+
+			function date() {
+				let today = new Date();
+				document.getElementById('date').innerHTML = today.toDateString();
+			}
+
+			function clock() {
+				let today = new Date();
+				let hour = zeros(twelveHour(today.getHours()));
+				let minutes = zeros(today.getMinutes());
+				let greet = '';
+				if (today.getHours() >= 12) {
+					minutes += ' pm';
+				}
+				else {
+					minutes += ' am';
+				}
+				hrs = today.getHours();
+				if (hrs < 12) {
+					greet = 'Good Morning';
+				} else if (hrs >= 12 && hrs <= 17) {
+					greet = 'Good Afternoon';
+				} else if (hrs >= 17 && hrs <= 24) {
+					greet = 'Good Evening';
+				}
+				document.getElementById('greet').innerHTML = greet;
+				document.getElementById('hour').innerHTML = hour;
+				document.getElementById('min').innerHTML = minutes;
+			}
+
+			function twelveHour(hour) {
+				if (hour > 12) {
+					return hour -= 12;
+				} else if (hour === 0) {
+					return hour = 12;
+				} else {
+					return hour;
+				}
+			}
+			// adds zero infront of single digit number
+			function zeros(num) {
+				if (num < 10) {
+					num = '0' + num;
+				};
+				return num;
+			}
+
+			function dateTime() {
+				date();
+				clock();
+				setTimeout(dateTime, 1000);
+			}
+
+			dateTime();
+		});
+	</script>
 </head>
 
 <body>
-	<link href="https://fonts.googleapis.com/css?family=Lobster|Roboto:400,700" rel="stylesheet">
-
-	<div class="full-table">
-		<div class="table-cell">
-
-			<div class="card">
-				<div class="greet" id="greet"></div>
-				<div class="date" id="date"></div>
-				<div class="clock">
-					<div class="time" id="hour"></div>
-					<div class="colon">:</div>
-					<div class="time" id="min"></div>
-				</div>
-			</div>
-
+	<div class="card">
+		<div class="greet" id="greet"></div>
+		<div class="date" id="date"></div>
+		<div class="clock">
+			<div class="time" id="hour"></div>
+			<div class="colon">:</div>
+			<div class="time" id="min"></div>
 		</div>
 	</div>
-
-	<script>
-		function date() {
-			let today = new Date();
-			document.getElementById('date').innerHTML = today.toDateString();
-		}
-
-		function clock() {
-			let today = new Date();
-			let hour = zeros(twelveHour(today.getHours()));
-			let minutes = zeros(today.getMinutes());
-			let greet = '';
-			if (today.getHours() >= 12) {
-				minutes += ' pm';
-			}
-			else {
-				minutes += ' am';
-			}
-			hrs = today.getHours();
-			if (hrs < 12) {
-				greet = 'Good Morning';
-			} else if (hrs >= 12 && hrs <= 17) {
-				greet = 'Good Afternoon';
-			} else if (hrs >= 17 && hrs <= 24) {
-				greet = 'Good Evening';
-			}
-			document.getElementById('greet').innerHTML = greet;
-			document.getElementById('hour').innerHTML = hour;
-			document.getElementById('min').innerHTML = minutes;
-		}
-
-		function twelveHour(hour) {
-			if (hour > 12) {
-				return hour -= 12;
-			} else if (hour === 0) {
-				return hour = 12;
-			} else {
-				return hour;
-			}
-		}
-		// adds zero infront of single digit number
-		function zeros(num) {
-			if (num < 10) {
-				num = '0' + num;
-			};
-			return num;
-		}
-
-		function dateTime() {
-			date();
-			clock();
-			setTimeout(dateTime, 1000);
-		}
-
-		dateTime();
-	</script>
-
 </body>
 
 </html>
